@@ -1,14 +1,26 @@
 <script setup lang="ts">
-const app = useAppStore()
+import SheetHeader from '@/components/SheetHeader.vue'
+import CharacteristicsCard from '@/components/CharacteristicsCard.vue'
+import PortraitUpload from '@/components/PortraitUpload.vue'
+import DerivedPanel from '@/components/DerivedPanel.vue'
+import SkillsTable from '@/components/SkillsTable.vue'
+import WeaponsTable from '@/components/WeaponsTable.vue'
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-50">
-    <div class="p-6 rounded-2xl border bg-white space-y-3">
-      <h1 class="text-2xl font-bold">CoC 7e Character Builder</h1>
-      <button class="px-3 py-1.5 rounded-xl border" @click="app.count++">
-        Count: {{ app.count }}
-      </button>
-    </div>
+  <div class="mx-auto max-w-6xl p-6 space-y-6">
+    <!-- Row: Player info | Characteristics | Portrait -->
+    <section class="grid gap-4 items-start md:grid-cols-[minmax(0,1.2fr)_minmax(0,1.2fr)_auto]">
+      <SheetHeader class="h-full" />
+      <CharacteristicsCard class="h-full" />
+      <div class="justify-self-end">
+        <PortraitUpload class="h-full" />
+      </div>
+    </section>
+
+    <!-- Rest of the sheet -->
+    <DerivedPanel />
+    <SkillsTable />
+    <WeaponsTable />
   </div>
 </template>
