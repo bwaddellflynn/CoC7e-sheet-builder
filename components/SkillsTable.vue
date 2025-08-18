@@ -12,7 +12,6 @@ type Pool = 'occ' | 'personal'
 const store = useCharacterStore()
 const { occBudget, piBudget, occSpent, piSpent } = storeToRefs(store)
 
-// Which pool are we spending from?
 const activePool = ref<Pool>('occ')
 
 const rows = computed<SkillRow[]>(() => {
@@ -76,7 +75,6 @@ function setTotal(name: string, total: number) {
   let personal = v.personal ?? 0
 
   if (activePool.value === 'occ') {
-    // Only allow OSP on occupation skills
     if (!store.isOccSkill(name)) return
     occ = clamp(Math.round(total - base - personal), 0, 99)
     store.setOccPoints(name, occ)
@@ -91,26 +89,21 @@ function isCustomSkill(name: string) {
 }
 function removeSkill(name: string) {
   if (!isCustomSkill(name)) return
-  if (confirm(`Remove skill "${name}"?`)) {
-    store.removeCustomSkill(name)
-  }
+  if (confirm(`Remove skill "${name}"?`)) store.removeCustomSkill(name)
 }
 
-// occupation-skill indicator
-function isOcc(name: string) {
-  return store.isOccSkill(name)
-}
-
+// indicator / budgets
+function isOcc(name: string) { return store.isOccSkill(name) }
 const occOver = computed(() => occSpent.value > occBudget.value)
 const piOver  = computed(() => piSpent.value  > piBudget.value)
 </script>
 
 <template>
   <div class="p-2 rounded-lg border bg-white">
-    <div class="flex items-center justify-between mb-2">
+    <!-- Controls row: hide on print for maximum space -->
+    <div class="no-print flex items-center justify-between mb-2">
       <h2 class="text-sm font-semibold">Investigator Skills</h2>
 
-      <!-- Budget badges + pool toggle -->
       <div class="flex items-center gap-2">
         <span
           class="px-2 py-0.5 rounded border text-[11px] tabular-nums"
@@ -149,47 +142,37 @@ const piOver  = computed(() => piSpent.value  > piBudget.value)
     </div>
 
     <div class="overflow-x-auto">
-      <table class="w-full">
-        <thead class="bg-gray-50 text-sm">
+      <table class="w-full text-[12px] print:text-[11px]">
+        <thead class="bg-gray-50 text-sm print:text-[11px]">
           <tr>
-            <th class="text-left p-1.5">Skill</th>
-            <th class="text-right p-1.5">Rating</th>
-            <th class="text-left p-1.5">Skill</th>
-            <th class="text-right p-1.5">Rating</th>
-            <th class="text-left p-1.5">Skill</th>
-            <th class="text-right p-1.5">Rating</th>
-            <th class="text-left p-1.5">Skill</th>
-            <th class="text-right p-1.5">Rating</th>
+            <th class="text-left p-1">Skill</th>
+            <th class="text-right p-1">Rating</th>
+            <th class="text-left p-1">Skill</th>
+            <th class="text-right p-1">Rating</th>
+            <th class="text-left p-1">Skill</th>
+            <th class="text-right p-1">Rating</th>
+            <th class="text-left p-1">Skill</th>
+            <th class="text-right p-1">Rating</th>
           </tr>
         </thead>
 
-        <tbody class="text-sm">
+        <tbody class="text-sm print:text-[11px]">
           <tr v-for="row in quartets" :key="row[0]?.name" class="odd:bg-white even:bg-gray-50">
             <!-- 4 skills per table row -->
             <template v-for="i in 4" :key="i">
               <template v-if="row[i-1]">
-                <!-- Skill cell -->
+                <!-- Skill cell (compact + print-more-compact) -->
                 <td class="p-1 align-top">
-                  <div class="relative">
-                    <!-- main; reserve space for bottom-left buttons -->
+                  <div class="relative group">
                     <div
-                      class="pr-1 pb-7 min-h-[56px]"
+                      class="pr-1 min-h-[52px] print:min-h-[42px]"
                       :class="isOcc(row[i-1].name) ? 'pl-2 border-l-2 border-emerald-300' : ''"
                     >
                       <div class="font-medium leading-snug break-words">
                         {{ row[i-1].name }}
-                        <!-- OCC badge -->
-                        <span
-                          v-if="isOcc(row[i-1].name)"
-                          class="ml-1 align-middle inline-flex items-center rounded px-1 py-[1px]
-                                 text-[10px] border border-emerald-300 bg-emerald-50 text-emerald-700"
-                          title="Occupation skill"
-                        >
-                          OCC
-                        </span>
                       </div>
 
-                      <!-- Base line under title -->
+                      <!-- Base line -->
                       <div class="mt-0.5 text-[10px] text-gray-500">
                         Base {{ row[i-1].base }}
                       </div>
@@ -211,12 +194,14 @@ const piOver  = computed(() => piSpent.value  > piBudget.value)
                       </div>
                     </div>
 
-                    <!-- Bottom-left square controls -->
-                    <div class="absolute bottom-1 left-1 flex items-center gap-1">
+                    <!-- Top-right hover controls (hide on print) -->
+                    <div
+                      class="absolute top-1 right-1 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity print:hidden"
+                    >
                       <button
                         v-if="isCustomSkill(row[i-1].name)"
-                        class="w-5 h-5 grid place-items-center border rounded-none text-[11px] leading-none
-                               text-red-600 hover:bg-red-50"
+                        class="w-5 h-5 grid place-items-center rounded border text-[11px] leading-none
+                               text-red-600 bg-white/90 backdrop-blur-sm shadow-sm hover:bg-red-50"
                         title="Remove this custom skill"
                         @click="removeSkill(row[i-1].name)"
                         aria-label="Remove custom skill"
@@ -226,8 +211,8 @@ const piOver  = computed(() => piSpent.value  > piBudget.value)
 
                       <button
                         v-if="isUmbrellaParent(row[i-1].name)"
-                        class="w-5 h-5 grid place-items-center border rounded-none text-[11px] leading-none
-                               hover:bg-gray-50"
+                        class="w-5 h-5 grid place-items-center rounded border text-[11px] leading-none
+                               bg-white/90 backdrop-blur-sm shadow-sm hover:bg-gray-50"
                         title="Add specialization"
                         @click="startAdd(row[i-1].name)"
                         aria-label="Add specialization"
@@ -240,7 +225,7 @@ const piOver  = computed(() => piSpent.value  > piBudget.value)
 
                 <!-- Rating cell -->
                 <td class="p-1 align-top">
-                  <div class="min-w-[72px] w-[72px] ml-auto">
+                  <div class="min-w-[66px] w-[66px] ml-auto print:min-w-[60px] print:w-[60px]">
                     <ValueSplit
                       :model-value="row[i-1].total"
                       size="xs"

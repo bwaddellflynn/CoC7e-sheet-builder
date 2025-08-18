@@ -6,22 +6,17 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxtjs/tailwindcss',
-    ['@pinia/nuxt', { autoImports: ['defineStore'] }], // Pinia + auto-import defineStore
+    ['@pinia/nuxt', { autoImports: ['defineStore'] }],
   ],
 
-  css: ['@/assets/css/tailwind.css'],
+  // Global styles
+  css: ['@/assets/css/tailwind.css', '@/assets/css/print.css'],
 
   app: {
     head: { title: 'CoC 7e Sheet Builder' },
-    // If you deploy under a subpath (e.g., GitHub Pages), uncomment and set:
-    // baseURL: '/coc7e-sheet-builder/'
+    // baseURL: '/coc7e-sheet-builder/',
   },
 
-  // Nice-to-have TS strictness
-  typescript: {
-    strict: true
-  },
-
-  // If generating a static site for GitHub Pages, you can use:
+  typescript: { strict: true },
   // nitro: { preset: 'github-pages' },
 })

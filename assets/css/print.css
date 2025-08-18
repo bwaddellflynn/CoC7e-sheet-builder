@@ -1,0 +1,41 @@
+/* assets/css/print.css */
+
+/* Show both pages during export (even if v-show hides one) */
+.exporting .print-page { display: block !important; }
+
+/* Hide tab bar during export (and in print below) */
+.exporting .tabbar { display: none !important; }
+
+/* PRINT RULES */
+@media print {
+  /* Keep colors */
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  /* Hide UI chrome */
+  .no-print { display: none !important; }
+  .tabbar   { display: none !important; }
+
+  /* Pagination */
+  .print-page { 
+    display: block !important; 
+    break-inside: avoid-page;          /* modern */
+    page-break-inside: avoid;          /* legacy */
+  }
+  .print-page + .print-page { 
+    break-before: page;                 /* modern */
+    page-break-before: always;          /* legacy */
+  }
+
+  /* Keep cards/sections together where possible */
+  .avoid-break { 
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
+/* Paper size/margins — change format in jsPDF to match if you export client-side */
+@page { 
+  margin: 10mm;
+  /* size: letter;   /* uncomment if you want to force Letter */
+  /* size: A4;       /* or A4 */
+}

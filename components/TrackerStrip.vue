@@ -32,7 +32,7 @@ watchEffect(() => {
           :start="0"
           :end="20"
           :rows="5"
-          head-label="- Dying - | - Unconscious -"
+          head-label="Dying|Unconscious"
           :head-span="4"
         />
         <div class="mt-2 flex items-center gap-3 text-[11px] text-gray-700">

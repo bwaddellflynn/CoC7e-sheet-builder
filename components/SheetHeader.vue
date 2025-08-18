@@ -38,7 +38,7 @@ function onSelectOccupation(ev: Event) {
 
       <!-- Occupation (select) -->
       <div class="row">
-        <label for="occupationKey" class="field-label">Occupation</label>
+        <label for="occupationKey" class="field-label">Select Occ</label>
         <select
           id="occupationKey"
           class="input-line !border-b !border-gray-300 !rounded-none !px-0 !py-0.5 text-xs"
@@ -54,7 +54,7 @@ function onSelectOccupation(ev: Event) {
 
       <!-- (Optional) show resolved occupation label as read-only text -->
       <div v-if="store.c.occupation" class="row">
-        <label class="field-label">Selected</label>
+        <label class="field-label">Occupation</label>
         <div class="text-xs">{{ store.c.occupation }}</div>
       </div>
 

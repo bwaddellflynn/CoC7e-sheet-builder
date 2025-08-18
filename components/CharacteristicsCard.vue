@@ -28,10 +28,10 @@ function setStat(key: StatKey, val: number) { store.setStat(key, val) }
         :key="cell.kind === 'stat' ? cell.key : 'MOVE'"
         class="p-2 rounded-lg border"
       >
-        <!-- Stat cells: label on the left, control on the right -->
+        <!-- Stat cells: label ABOVE the control -->
         <template v-if="cell.kind === 'stat'">
-          <div class="grid grid-cols-[auto,1fr] items-center gap-2">
-            <div class="text-sm font-semibold">{{ cell.key }}</div>
+          <div class="space-y-1">
+            <div class="text-sm font-semibold leading-tight">{{ cell.key }}</div>
             <ValueSplit
               :model-value="store.c.stats[cell.key]"
               size="xxs"
@@ -41,10 +41,10 @@ function setStat(key: StatKey, val: number) { store.setStat(key, val) }
           </div>
         </template>
 
-        <!-- Move Rate: label left, value right (no ValueSplit) -->
+        <!-- Move Rate: label ABOVE the value -->
         <template v-else>
-          <div class="grid grid-cols-[auto,1fr] items-center gap-2">
-            <div class="text-sm font-semibold">Move Rate</div>
+          <div class="space-y-1">
+            <div class="text-sm font-semibold leading-tight">Move Rate</div>
             <div class="flex items-baseline gap-2">
               <div class="text-base font-semibold">{{ store.derivedMax.move }}</div>
               <div class="text-[10px] text-gray-500">STR/DEX vs SIZ · age {{ store.c.age }}</div>
