@@ -15,9 +15,7 @@ const cells: Cell[] = [
 ]
 
 const store = useCharacterStore()
-function setStat(key: StatKey, val: number) {
-  store.setStat(key, val)
-}
+function setStat(key: StatKey, val: number) { store.setStat(key, val) }
 </script>
 
 <template>
@@ -30,22 +28,27 @@ function setStat(key: StatKey, val: number) {
         :key="cell.kind === 'stat' ? cell.key : 'MOVE'"
         class="p-2 rounded-lg border"
       >
-        <!-- Stat cells (editable with ValueSplit) -->
+        <!-- Stat cells: label on the left, control on the right -->
         <template v-if="cell.kind === 'stat'">
-          <div class="text-xs font-medium leading-tight mb-1">{{ cell.key }}</div>
-          <ValueSplit
-            v-model="store.c.stats[cell.key]"
-            size="sm"
-            :min="15" :max="90" :step="5"
-          />
+          <div class="grid grid-cols-[auto,1fr] items-center gap-2">
+            <div class="text-sm font-semibold">{{ cell.key }}</div>
+            <ValueSplit
+              :model-value="store.c.stats[cell.key]"
+              size="xxs"
+              :min="15" :max="90" :step="5"
+              @update:modelValue="v => setStat(cell.key, v)"
+            />
+          </div>
         </template>
 
-        <!-- 9th cell: Move Rate (unchanged style) -->
+        <!-- Move Rate: label left, value right (no ValueSplit) -->
         <template v-else>
-          <div class="text-xs font-medium leading-tight mb-1">Move Rate</div>
-          <div class="mt-1 flex items-baseline gap-2">
-            <div class="text-lg font-semibold">{{ store.derivedMax.move }}</div>
-            <div class="text-[11px] text-gray-500">STR/DEX vs SIZ · age {{ store.c.age }}</div>
+          <div class="grid grid-cols-[auto,1fr] items-center gap-2">
+            <div class="text-sm font-semibold">Move Rate</div>
+            <div class="flex items-baseline gap-2">
+              <div class="text-base font-semibold">{{ store.derivedMax.move }}</div>
+              <div class="text-[10px] text-gray-500">STR/DEX vs SIZ · age {{ store.c.age }}</div>
+            </div>
           </div>
         </template>
       </div>
