@@ -6,7 +6,9 @@ import Tabs from '@/components/Tabs.vue'
 import PrintControls from '@/components/PrintControls.vue'
 import ExportPdfButton from '@/components/ExportPdfButton.vue'
 import JsonImportExport from '@/components/JsonImportExport.vue'
-import BackPage from '@/components/BackPage.vue'
+import BackPage from '@/components/Backpage.vue'
+import QuickReferenceRules from '~/components/QuickReferenceRules.vue'
+import FellowInvestigators from '~/components/FellowInvestigators.vue'
 
 import SheetHeader from '@/components/SheetHeader.vue'
 import CharacteristicsCard from '@/components/CharacteristicsCard.vue'
@@ -38,8 +40,12 @@ const tabs = [
 
     <div id="export-root">
       <!-- PAGE 1: Header → Characteristics → Portrait → Tracker → Weapons/Combat -->
-      <div v-show="active === 'p1'" class="space-y-4 print-page">
-        <section class="grid gap-4 items-start md:grid-cols-[minmax(0,1.2fr)_minmax(0,1.2fr)_auto] avoid-break">
+      <div v-show="active === 'p1'" class="space-y-4 print-page p1-print">
+        <section
+          class="grid gap-4 items-start
+                md:grid-cols-[minmax(0,1.2fr)_minmax(0,1.2fr)_auto]
+                print:grid-cols-[minmax(0,1.2fr)_minmax(0,1.2fr)_auto]
+                avoid-break">
           <SheetHeader class="h-full" />
           <CharacteristicsCard class="h-full" />
           <div class="justify-self-end">
@@ -50,11 +56,27 @@ const tabs = [
         <TrackerStrip class="avoid-break" />
 
         <!-- Weapons & Combat row (4/5 + 1/5) -->
-        <section class="grid gap-4 items-start md:grid-cols-5 avoid-break">
-          <WeaponsTable class="md:col-span-4" />
-          <CombatPanel class="md:col-span-1" />
+        <section
+          class="grid gap-4 items-start
+                md:grid-cols-5
+                print:grid-cols-5
+                avoid-break">
+          <WeaponsTable class="md:col-span-4 print:col-span-4" />
+          <CombatPanel class="md:col-span-1 print:col-span-1" />
+        </section>
+        <!-- Quick Reference (left) + Fellow Investigators (right) -->
+        <section
+          class="grid gap-4 items-start
+                md:grid-cols-[minmax(0,1fr)_minmax(0,2.6fr)]
+                print:grid-cols-[minmax(0,1fr)_minmax(0,2.6fr)]
+                avoid-break"
+        >
+          <QuickReferenceRules />
+          <FellowInvestigators />
         </section>
       </div>
+
+
 
       <!-- PAGE 2: Skills -->
       <div v-show="active === 'p2'" class="space-y-4 print-page">

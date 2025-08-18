@@ -19,12 +19,12 @@ function step(k: StatKey, delta: number) {
     <h2 class="font-semibold mb-3">Characteristics</h2>
 
     <!-- 3 columns -->
-    <div class="grid md:grid-cols-3 gap-3">
+    <div class="grid md:grid-cols-3 print:grid-cols-3 gap-3">
       <!-- Column 1 -->
       <div class="space-y-3">
         <div v-for="k in col1" :key="k" class="p-3 rounded-xl border">
           <div class="text-sm font-medium">{{ k }}</div>
-          <div class="mt-2 flex items-center gap-2">
+          <div class="mt-2 flex print:flex items-center gap-2">
             <button class="px-2 py-1 rounded bg-gray-100" @click="step(k,-5)">–5</button>
             <input
               type="number"
@@ -41,7 +41,7 @@ function step(k: StatKey, delta: number) {
       <div class="space-y-3">
         <div v-for="k in col2" :key="k" class="p-3 rounded-xl border">
           <div class="text-sm font-medium">{{ k }}</div>
-          <div class="mt-2 flex items-center gap-2">
+          <div class="mt-2 flex print:flex items-center gap-2">
             <button class="px-2 py-1 rounded bg-gray-100" @click="step(k,-5)">–5</button>
             <input
               type="number"
@@ -59,7 +59,7 @@ function step(k: StatKey, delta: number) {
         <!-- POW / EDU -->
         <div v-for="k in col3" :key="k" class="p-3 rounded-xl border">
           <div class="text-sm font-medium">{{ k }}</div>
-          <div class="mt-2 flex items-center gap-2">
+          <div class="mt-2 flex print:flex items-center gap-2">
             <button class="px-2 py-1 rounded bg-gray-100" @click="step(k,-5)">–5</button>
             <input
               type="number"

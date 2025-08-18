@@ -22,7 +22,7 @@ watchEffect(() => {
 <template>
   <div class="p-3 rounded-xl border bg-white">
     <!-- Row 1: HP (narrow) | SAN (wide) -->
-    <div class="grid gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,3fr)]">
+    <div class="grid gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] print:grid-cols-[minmax(0,1fr)_minmax(0,3fr)]">
       <!-- Hit Points: fixed 0–20; mark = derived max -->
       <div class="p-2 rounded-lg border bg-gradient-to-b from-white to-gray-50">
         <NumberTrack
@@ -72,7 +72,7 @@ watchEffect(() => {
     </div>
 
     <!-- Row 2: Luck (wide) | Magic Points (narrow) -->
-    <div class="mt-3 grid gap-3 md:grid-cols-[minmax(0,3fr)_minmax(0,1fr)]">
+    <div class="mt-3 grid gap-3 md:grid-cols-[minmax(0,3fr)_minmax(0,1fr)] print:grid-cols-[minmax(0,3fr)_minmax(0,1fr)]">
       <!-- Luck: 1–99 (no separate max; leave mark unset or 99 if you prefer) -->
       <div class="p-2 rounded-lg border bg-gradient-to-b from-white to-gray-50">
         <NumberTrack

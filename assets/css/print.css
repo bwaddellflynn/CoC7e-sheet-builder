@@ -1,5 +1,5 @@
 /* assets/css/print.css */
-
+:root { --p1-print-scale: 0.55; }
 /* Show both pages during export (even if v-show hides one) */
 .exporting .print-page { display: block !important; }
 
@@ -9,8 +9,25 @@
 /* PRINT RULES */
 @media print {
   /* Keep colors */
-  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { 
+    -webkit-print-color-adjust: exact; print-color-adjust: exact; 
+  }
+    .p1-print { 
+    zoom: var(--p1-print-scale);
+  }
 
+  /* Firefox fallback where 'zoom' isn't supported */
+  @supports not (zoom: 1) {
+    .p1-print {
+      transform: scale(var(--p1-print-scale));
+      transform-origin: top left;
+      width: calc(100% / var(--p1-print-scale)); /* prevent clipped right side */
+    }
+  }
+
+  /* Belt-and-suspenders: make sure display modes aren't reset by other print rules */
+  .p1-print .grid { display: grid !important; }
+  .p1-print .flex { display: flex !important; }
   /* Hide UI chrome */
   .no-print { display: none !important; }
   .tabbar   { display: none !important; }

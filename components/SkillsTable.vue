@@ -99,7 +99,7 @@ const piOver  = computed(() => piSpent.value  > piBudget.value)
 </script>
 
 <template>
-  <div class="p-2 rounded-lg border bg-white">
+  <div class="skills-table p-2 print:p-1 rounded-lg border bg-white">
     <!-- Controls row: hide on print for maximum space -->
     <div class="no-print flex items-center justify-between mb-2">
       <h2 class="text-sm font-semibold">Investigator Skills</h2>
@@ -162,7 +162,7 @@ const piOver  = computed(() => piSpent.value  > piBudget.value)
             <template v-for="i in 4" :key="i">
               <template v-if="row[i-1]">
                 <!-- Skill cell (compact + print-more-compact) -->
-                <td class="p-1 align-top">
+                <td class="p-0.5 align-top">
                   <div class="relative group">
                     <div
                       class="pr-1 min-h-[52px] print:min-h-[42px]"
@@ -224,11 +224,11 @@ const piOver  = computed(() => piSpent.value  > piBudget.value)
                 </td>
 
                 <!-- Rating cell -->
-                <td class="p-1 align-top">
+                <td class="p-0.5 align-top">
                   <div class="min-w-[66px] w-[66px] ml-auto print:min-w-[60px] print:w-[60px]">
                     <ValueSplit
                       :model-value="row[i-1].total"
-                      size="xs"
+                      size="xxs"
                       :min="0"
                       :max="99"
                       :readonly="activePool === 'occ' && !isOcc(row[i-1].name)"

@@ -26,7 +26,7 @@ function onSelectOccupation(ev: Event) {
     <div class="space-y-2">
       <!-- Name -->
       <div class="row">
-        <label for="name" class="field-label">Investigator</label>
+        <label for="name" class="field-label">Character</label>
         <input
           id="name"
           v-model="store.c.name"
@@ -38,7 +38,7 @@ function onSelectOccupation(ev: Event) {
 
       <!-- Occupation (select) -->
       <div class="row">
-        <label for="occupationKey" class="field-label">Select Occ</label>
+        <label for="occupationKey" class="field-label">Occupation</label>
         <select
           id="occupationKey"
           class="input-line !border-b !border-gray-300 !rounded-none !px-0 !py-0.5 text-xs"
@@ -50,12 +50,6 @@ function onSelectOccupation(ev: Event) {
             {{ o.label }}
           </option>
         </select>
-      </div>
-
-      <!-- (Optional) show resolved occupation label as read-only text -->
-      <div v-if="store.c.occupation" class="row">
-        <label class="field-label">Occupation</label>
-        <div class="text-xs">{{ store.c.occupation }}</div>
       </div>
 
       <!-- Player -->

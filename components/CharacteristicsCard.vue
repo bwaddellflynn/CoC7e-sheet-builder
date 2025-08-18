@@ -19,14 +19,14 @@ function setStat(key: StatKey, val: number) { store.setStat(key, val) }
 </script>
 
 <template>
-  <div class="p-3 rounded-xl border bg-white">
+  <div class="p-3 rounded-xl border bg-white avoid-break">
     <h2 class="text-base font-semibold mb-2">Characteristics</h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+    <div class="grid grid-cols-1 md:grid-cols-3 print:grid-cols-3 gap-2">
       <div
         v-for="cell in cells"
         :key="cell.kind === 'stat' ? cell.key : 'MOVE'"
-        class="p-2 rounded-lg border"
+        class="p-2 rounded-lg border min-w-0"
       >
         <!-- Stat cells: label ABOVE the control -->
         <template v-if="cell.kind === 'stat'">
@@ -45,7 +45,7 @@ function setStat(key: StatKey, val: number) { store.setStat(key, val) }
         <template v-else>
           <div class="space-y-1">
             <div class="text-sm font-semibold leading-tight">Move Rate</div>
-            <div class="flex items-baseline gap-2">
+            <div class="flex print:flex items-baseline gap-2">
               <div class="text-base font-semibold">{{ store.derivedMax.move }}</div>
               <div class="text-[10px] text-gray-500">STR/DEX vs SIZ · age {{ store.c.age }}</div>
             </div>
