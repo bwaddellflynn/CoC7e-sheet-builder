@@ -4,7 +4,6 @@ import { ref } from 'vue'
 
 import Tabs from '@/components/Tabs.vue'
 import PrintControls from '@/components/PrintControls.vue'
-import ExportPdfButton from '@/components/ExportPdfButton.vue'
 import JsonImportExport from '@/components/JsonImportExport.vue'
 import BackPage from '@/components/Backpage.vue'
 import QuickReferenceRules from '~/components/QuickReferenceRules.vue'
@@ -33,7 +32,6 @@ const tabs = [
       <Tabs v-model="active" :tabs="tabs" />
       <div class="flex items-center gap-2">
         <JsonImportExport />
-        <ExportPdfButton filename="coc-investigator.pdf" />
         <PrintControls v-model:active="active" />
       </div>
     </div>
@@ -43,8 +41,8 @@ const tabs = [
       <div v-show="active === 'p1'" class="space-y-4 print-page p1-print">
         <section
           class="grid gap-4 items-start
-                md:grid-cols-[minmax(0,1.2fr)_minmax(0,1.2fr)_auto]
-                print:grid-cols-[minmax(0,1.2fr)_minmax(0,1.2fr)_auto]
+                md:grid-cols-[minmax(0,1.0fr)_minmax(0,1.0fr)_minmax(0,0.6fr)]
+                print:grid-cols-[minmax(0,1.2fr)_minmax(0,1.2fr)_minmax(0,0.6fr)]
                 avoid-break">
           <SheetHeader class="h-full" />
           <CharacteristicsCard class="h-full" />
