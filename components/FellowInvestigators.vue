@@ -24,7 +24,7 @@
             v-model="slot.char"
             type="text"
             class="flex-1 border rounded px-2 py-1 text-[12px]"
-            placeholder="Character name"
+            placeholder=""
           />
         </div>
 
@@ -41,7 +41,7 @@
             v-model="slot.player"
             type="text"
             class="flex-1 border rounded px-2 py-1 text-[12px]"
-            placeholder="Player name"
+            placeholder=""
           />
         </div>
       </div>

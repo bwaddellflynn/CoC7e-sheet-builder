@@ -101,7 +101,7 @@ function hasOptionName(name: string | undefined) {
 
             <!-- Damage: medium -->
             <td class="p-2">
-              <input v-model="w.damage" class="w-full border rounded px-2 py-1" placeholder="1d8+DB" />
+              <input v-model="w.damage" class="w-full border rounded px-2 py-1" />
             </td>
 
             <!-- Range / Attk / Ammo / Malf: narrow -->
@@ -115,7 +115,7 @@ function hasOptionName(name: string | undefined) {
               <input v-model="w.ammo" class="w-full border rounded px-1 py-1 text-xs whitespace-nowrap" />
             </td>
             <td class="p-2">
-              <input v-model="w.malfunction" class="w-full border rounded px-1 py-1 text-xs whitespace-nowrap" placeholder="100" />
+              <input v-model="w.malfunction" class="w-full border rounded px-1 py-1 text-xs whitespace-nowrap"/>
             </td>
 
             <!-- Actions -->
